@@ -60,6 +60,17 @@ In Portainer kann dasselbe Image verwendet werden. Exponieren Sie Port `8000` na
 - Ergänzende Validierungsregeln (z. B. Pflichtfelder, zusätzliche Typ-Mappings)
 - Authentifizierung oder Upload-Historie, falls Portal-Einsatz geplant ist
 
-
-# venv bei Bedarf erneut nutzen (ohne Execution-Policy-Anpassung)
-.\.venv\Scripts\python.exe -m flask --app app.main --debug run --port 8000
+## Docker Compose
+services:
+  zaak-to-modulon:
+    build:
+      context: https://github.com/Achim-Sommer/ZaakToModulon.git#main
+      dockerfile: Dockerfile
+    container_name: zaak-to-modulon
+    ports:
+      - "9000:8000"
+    environment:
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_RUN_PORT: 8000
+      FLASK_APP: app.main
+    restart: unless-stopped
