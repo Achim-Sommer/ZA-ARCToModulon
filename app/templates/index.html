@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZAAK ➜ Modulon Konverter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v={{ build_time.timestamp() }}" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>ZAAK ➜ Modulon</h1>
+        <p>
+          Ziehen Sie den <strong>Tätigkeitsprotokoll</strong>-Export aus ZAAK hierher oder
+          wählen Sie die Datei per Klick aus.
+        </p>
+      </header>
+
+      <section id="dropzone" class="dropzone" role="button" tabindex="0">
+        <input type="file" id="fileInput" accept=".csv" />
+        <div class="dropzone__content">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 16a1 1 0 0 0 1-1v-5.586l1.293 1.293a1 1 0 1 0 1.414-1.414l-3-3a1 1 0 0 0-1.414 0l-3 3a1 1 0 0 0 1.414 1.414L11 9.414V15a1 1 0 0 0 1 1Zm8-1a1 1 0 1 0-2 0 6 6 0 1 1-12 0 1 1 0 0 0-2 0 8 8 0 1 0 16 0ZM5 7a1 1 0 0 1-2 0 9 9 0 0 1 17.777-2.687 1 1 0 0 1-1.955.374A7 7 0 0 0 5 7Z" />
+          </svg>
+          <p>
+            <span class="accent">Datei hier ablegen</span> oder klicken, um eine Datei
+            zu wählen.
+          </p>
+          <small>Es werden ausschließlich CSV-Dateien verarbeitet.</small>
+        </div>
+      </section>
+
+      <section id="status" class="status" hidden></section>
+
+      <section id="result" class="result" hidden>
+        <h2>Fertig!</h2>
+        <p>Die umgewandelte Datei steht zum Download bereit.</p>
+        <a id="downloadLink" class="button" download="fertig-fuer-modulon.csv">CSV herunterladen</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>
+        Tipp: Bei Problemen prüfen Sie, ob die ZAAK-CSV unverändert ist. Stand:
+        {{ build_time.strftime('%d.%m.%Y %H:%M') }} UTC
+      </small>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}?v={{ build_time.timestamp() }}" defer></script>
+  </body>
+</html>

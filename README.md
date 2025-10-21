@@ -1,0 +1,65 @@
+# ZAAK ➜ Modulon CSV-Konverter
+
+Webanwendung, die den CSV-Export *Tätigkeitsprotokoll aus ZAAK* in das Layout der Datei *Fertig für Modulon* überführt. Upload, Umwandlung und Download erfolgen in einem Schritt.
+
+## Features
+
+- Drag & Drop oder Dateiauswahl für ZAAK-CSV-Dateien (`;`-Separierung)
+- Automatischer Download der Modulon-kompatiblen CSV
+- Spaltentransformationen:
+  - `Mandant` → konstant `1`
+  - `Lfd.-Nr.` → konstant `0`
+  - `Name` → Aufteilung in `Nachname` / `Vormane`
+  - `Typ` → Mapping (`Ruhe→RZ`, `Arbeit→AR`, `Bereit→BE`, `Lenken→LZ`)
+  - `C | M | S` → `C/M/CR` (Format `1/0/0`)
+  - Zeitspalten werden auf `HH:MM` normalisiert, `24:00:00` → `00:00`
+  - `Hk` → konstant `DTG`
+  - Nicht benötigte Modulon-Spalten bleiben leer
+- Encoding-Autodetektion (UTF‑8 & Windows-1252)
+
+## Lokale Nutzung
+
+### Voraussetzungen
+
+- Python ≥ 3.11 (alternativ Docker, siehe unten)
+
+### Setup & Start
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+flask --app app.main --debug run --port 8000
+```
+
+Die Anwendung läuft anschließend unter <http://127.0.0.1:8000>.
+
+## Docker-Deployment
+
+```powershell
+docker build -t zaak-to-modulon .
+docker run --rm -p 8000:8000 zaak-to-modulon
+```
+
+In Portainer kann dasselbe Image verwendet werden. Exponieren Sie Port `8000` nach außen.
+
+## Validierung
+
+1. Beispiel-Export aus ZAAK hochladen (`Tätikeitsprotokoll aus Zaak.csv`).
+2. Ausgabe mit Referenzdatei `Fertig für Modolon.csv` vergleichen.
+
+## Architektur
+
+- **Flask** als leichtgewichtiger Server (API + Templating)
+- **Vanilla JavaScript** für Upload & Download-Handling
+- Reiner CSV-Workflow (`csv.DictReader`/`csv.writer`), keine Datenbank erforderlich
+
+## Weiterentwicklung
+
+- Unterstützung mehrerer Dateien im Batch-Modus
+- Ergänzende Validierungsregeln (z. B. Pflichtfelder, zusätzliche Typ-Mappings)
+- Authentifizierung oder Upload-Historie, falls Portal-Einsatz geplant ist
+
+
+# venv bei Bedarf erneut nutzen (ohne Execution-Policy-Anpassung)
+.\.venv\Scripts\python.exe -m flask --app app.main --debug run --port 8000
