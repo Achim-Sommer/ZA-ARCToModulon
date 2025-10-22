@@ -1,9 +1,9 @@
 services:
-  zaak-to-modulon:
+  za-arc-to-modulon:
     build:
-      context: https://github.com/Achim-Sommer/ZaakToModulon.git#main
+      context: https://github.com/Achim-Sommer/ZA-ARCToModulon.git#main
       dockerfile: Dockerfile
-    container_name: zaak-to-modulon
+    container_name: za-arc-to-modulon
     ports:
       - "9000:8000"
     environment:

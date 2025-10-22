@@ -5,7 +5,7 @@ from datetime import datetime
 
 from flask import Flask, jsonify, render_template, request, send_file
 
-from .converter import ConversionError, convert_zaak_to_modulon
+from .converter import ConversionError, convert_za_arc_to_modulon
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def convert():
 
     file_bytes = uploaded_file.read()
     try:
-        converted = convert_zaak_to_modulon(file_bytes)
+        converted = convert_za_arc_to_modulon(file_bytes)
     except ConversionError as exc:
         return jsonify({"error": str(exc)}), 400
 

@@ -1,10 +1,10 @@
-# ZAAK ➜ Modulon CSV-Konverter
+# ZA-ARC ➜ Modulon CSV-Konverter
 
-Webanwendung, die den CSV-Export *Tätigkeitsprotokoll aus ZAAK* in das Layout der Datei *Fertig für Modulon* überführt. Upload, Umwandlung und Download erfolgen in einem Schritt.
+Webanwendung, die den CSV-Export *Tätigkeitsprotokoll aus ZA-ARC* in das Layout der Datei *Fertig für Modulon* überführt. Upload, Umwandlung und Download erfolgen in einem Schritt.
 
 ## Features
 
-- Drag & Drop oder Dateiauswahl für ZAAK-CSV-Dateien (`;`-Separierung)
+- Drag & Drop oder Dateiauswahl für ZA-ARC-CSV-Dateien (`;`-Separierung)
 - Automatischer Download der Modulon-kompatiblen CSV
 - Spaltentransformationen:
   - `Mandant` → konstant `1`
@@ -37,15 +37,15 @@ Die Anwendung läuft anschließend unter <http://127.0.0.1:8000>.
 ## Docker-Deployment
 
 ```powershell
-docker build -t zaak-to-modulon .
-docker run --rm -p 8000:8000 zaak-to-modulon
+docker build -t za-arc-to-modulon .
+docker run --rm -p 8000:8000 za-arc-to-modulon
 ```
 
 In Portainer kann dasselbe Image verwendet werden. Exponieren Sie Port `8000` nach außen.
 
 ## Validierung
 
-1. Beispiel-Export aus ZAAK hochladen (`Tätikeitsprotokoll aus Zaak.csv`).
+1. Beispiel-Export aus ZA-ARC hochladen (`Tätikeitsprotokoll aus ZA-ARC.csv`).
 2. Ausgabe mit Referenzdatei `Fertig für Modolon.csv` vergleichen.
 
 ## Architektur
@@ -61,12 +61,14 @@ In Portainer kann dasselbe Image verwendet werden. Exponieren Sie Port `8000` na
 - Authentifizierung oder Upload-Historie, falls Portal-Einsatz geplant ist
 
 ## Docker Compose
+
+```yaml
 services:
-  zaak-to-modulon:
+  za-arc-to-modulon:
     build:
-      context: https://github.com/Achim-Sommer/ZaakToModulon.git#main
+      context: https://github.com/Achim-Sommer/ZA-ARCToModulon.git#main
       dockerfile: Dockerfile
-    container_name: zaak-to-modulon
+    container_name: za-arc-to-modulon
     ports:
       - "9000:8000"
     environment:
@@ -74,3 +76,4 @@ services:
       FLASK_RUN_PORT: 8000
       FLASK_APP: app.main
     restart: unless-stopped
+```

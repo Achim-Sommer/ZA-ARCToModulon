@@ -61,17 +61,17 @@ class ConversionError(Exception):
         return self.message
 
 
-def convert_zaak_to_modulon(content: bytes) -> bytes:
-    """Convert ZAAK CSV content into Modulon layout."""
+def convert_za_arc_to_modulon(content: bytes) -> bytes:
+    """Convert ZA-ARC CSV content into Modulon layout."""
 
     if not content:
-        raise ConversionError("Leere Datei – bitte eine gültige ZAAK-CSV hochladen.")
+        raise ConversionError("Leere Datei – bitte eine gültige ZA-ARC-CSV hochladen.")
 
     decoded = _decode_bytes(content)
     reader = csv.DictReader(StringIO(decoded), delimiter=";")
 
     if not reader.fieldnames:
-        raise ConversionError("CSV ohne Kopfzeile – bitte Export aus ZAAK verwenden.")
+        raise ConversionError("CSV ohne Kopfzeile – bitte Export aus ZA-ARC verwenden.")
 
     missing = REQUIRED_COLUMNS.difference(reader.fieldnames)
     if missing:
