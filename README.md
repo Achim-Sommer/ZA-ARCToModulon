@@ -54,6 +54,22 @@ In Portainer kann dasselbe Image verwendet werden. Exponieren Sie Port `8000` na
 - **Vanilla JavaScript** für Upload & Download-Handling
 - Reiner CSV-Workflow (`csv.DictReader`/`csv.writer`), keine Datenbank erforderlich
 
+## Projektstatistik
+
+Das Projekt umfasst insgesamt **562 Zeilen Code** in folgenden Quelldateien:
+
+- `app/converter.py`: 202 Zeilen (Konvertierungslogik)
+- `app/static/styles.css`: 140 Zeilen (Styling)
+- `app/static/app.js`: 119 Zeilen (Frontend-Logik)
+- `app/templates/index.html`: 52 Zeilen (HTML-Template)
+- `app/main.py`: 49 Zeilen (Flask-Server)
+
+Zusätzlich **34 Zeilen** Konfigurationsdateien:
+
+- `Dockerfile`: 21 Zeilen
+- `docker-compose.yml`: 12 Zeilen
+- `requirements.txt`: 1 Zeile
+
 ## Weiterentwicklung
 
 - Unterstützung mehrerer Dateien im Batch-Modus
